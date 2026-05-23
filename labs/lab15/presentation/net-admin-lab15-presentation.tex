@@ -1,0 +1,505 @@
+% Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  ignorenonframetext,
+  aspectratio=169,
+  russian,
+]{beamer}
+\newif\ifbibliography
+\usepackage{pgfpages}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption label separator}{: }
+\setbeamercolor{caption name}{fg=normal text.fg}
+\beamertemplatenavigationsymbolshorizontal
+% remove section numbering
+\setbeamertemplate{part page}{
+  \centering
+  \begin{beamercolorbox}[sep=16pt,center]{part title}
+    \usebeamerfont{part title}\insertpart\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{section page}{
+  \centering
+  \begin{beamercolorbox}[sep=12pt,center]{section title}
+    \usebeamerfont{section title}\insertsection\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{subsection page}{
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center]{subsection title}
+    \usebeamerfont{subsection title}\insertsubsection\par
+  \end{beamercolorbox}
+}
+% Prevent slide breaks in the middle of a paragraph
+\widowpenalties 1 10000
+\raggedbottom
+\AtBeginPart{
+  \frame{\partpage}
+}
+\AtBeginSection{
+  \ifbibliography
+  \else
+    \frame{\sectionpage}
+  \fi
+}
+\AtBeginSubsection{
+  \frame{\subsectionpage}
+}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+
+
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+\usepackage{caption}
+% Make caption package work with longtable
+\makeatletter
+\def\fnum@table{\tablename~\thetable}
+\makeatother
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+
+
+\ifLuaTeX
+\usepackage[bidi=basic,provide=*]{babel}
+\else
+\usepackage[bidi=default,provide=*]{babel}
+\fi
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+
+\usepackage[]{csquotes}
+
+% _resources/tex/beamer.tex
+\usepackage{fontspec}
+\usepackage{polyglossia}
+
+\setmainlanguage{russian}
+\setotherlanguage{english}
+
+% Use DejaVu fonts (excellent Cyrillic support, usually pre-installed)
+\setmainfont{DejaVu Serif}[Ligatures=TeX]
+\setsansfont{DejaVu Sans}[Ligatures=TeX]
+\setmonofont{DejaVu Sans Mono}
+
+%%% Keep your existing theme selection
+\IfFileExists{beamerthemegotham.sty}{
+  \usetheme{gotham}
+  \gothamset{
+    numbering=totalpagenumber,
+    parttocframe default=off,
+    sectiontocframe default=off,
+    subsectiontocframe default=off,
+  }
+}{
+  \usetheme{Madrid}
+}
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Содержание}
+\else
+  \newcommand\contentsname{Содержание}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{Список иллюстраций}
+\else
+  \newcommand\listfigurename{Список иллюстраций}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{Список таблиц}
+\else
+  \newcommand\listtablename{Список таблиц}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Рисунок}
+\else
+  \newcommand\figurename{Рисунок}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Таблица}
+\else
+  \newcommand\tablename{Таблица}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Список}
+\newcommand*\listoflistings{\listof{codelisting}{Листинги}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Лабораторная работа №15},
+  pdfauthor={бахи сиди али темассини},
+  pdflang={ru-RU},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{Лабораторная работа №15}
+\subtitle{Администрирование локальных сетей}
+\author{бахи сиди али темассини}
+\date{2026-05-23}
+
+\begin{document}
+\frame{\titlepage}
+
+\renewcommand*\contentsname{Содержание}
+\begin{frame}[allowframebreaks]
+  \frametitle{Содержание}
+  \setcounter{tocdepth}{1}
+  \tableofcontents
+\end{frame}
+\setcounter{tocdepth}{1}
+\tableofcontents
+}
+
+\section{Цель
+работы}\label{ux446ux435ux43bux44c-ux440ux430ux431ux43eux442ux44b}
+
+\begin{frame}{Цель работы}
+\begin{itemize}
+\tightlist
+\item
+  Настройка динамической маршрутизации между территориями организации
+\end{itemize}
+\end{frame}
+
+\section{Выполнение лабораторной
+работы}\label{ux432ux44bux43fux43eux43bux43dux435ux43dux438ux435-ux43bux430ux431ux43eux440ux430ux442ux43eux440ux43dux43eux439-ux440ux430ux431ux43eux442ux44b}
+
+\begin{frame}[fragile]{Настройка OSPF на маршрутизаторе сети «Донская»}
+\phantomsection\label{ux43dux430ux441ux442ux440ux43eux439ux43aux430-ospf-ux43dux430-ux43cux430ux440ux448ux440ux443ux442ux438ux437ux430ux442ux43eux440ux435-ux441ux435ux442ux438-ux434ux43eux43dux441ux43aux430ux44f}
+\begin{itemize}
+\tightlist
+\item
+  Включён процесс OSPF на маршрутизаторе сети «Донская»
+\item
+  Назначен Router ID \texttt{10.128.254.1}
+\item
+  Сети \texttt{10.0.0.0/8} добавлены в \texttt{area\ 0}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/1.png}
+
+}
+
+\caption{\label{fig-1}Настройка OSPF на маршрутизаторе сети «Донская»}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}[fragile]{Проверка состояния OSPF и таблицы маршрутизации}
+\phantomsection\label{ux43fux440ux43eux432ux435ux440ux43aux430-ux441ux43eux441ux442ux43eux44fux43dux438ux44f-ospf-ux438-ux442ux430ux431ux43bux438ux446ux44b-ux43cux430ux440ux448ux440ux443ux442ux438ux437ux430ux446ux438ux438}
+\begin{itemize}
+\tightlist
+\item
+  Выполнена проверка состояния OSPF
+\item
+  Подтверждён запуск процесса OSPF
+\item
+  Проверена таблица маршрутизации
+\item
+  Обнаружен маршрут к сети Сочи \texttt{10.130.0.0/16}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/2.png}
+
+}
+
+\caption{\label{fig-2}Проверка состояния OSPF и таблицы маршрутизации}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}[fragile]{Настройка OSPF на маршрутизаторе сети 42-го
+квартала}
+\phantomsection\label{ux43dux430ux441ux442ux440ux43eux439ux43aux430-ospf-ux43dux430-ux43cux430ux440ux448ux440ux443ux442ux438ux437ux430ux442ux43eux440ux435-ux441ux435ux442ux438-42-ux433ux43e-ux43aux432ux430ux440ux442ux430ux43bux430}
+\begin{itemize}
+\tightlist
+\item
+  Настроен OSPF на маршрутизаторе сети 42-го квартала
+\item
+  Назначен Router ID \texttt{10.128.254.2}
+\item
+  Сети добавлены в \texttt{area\ 0}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/3.png}
+
+}
+
+\caption{\label{fig-3}Настройка OSPF на маршрутизаторе сети 42-го
+квартала}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}[fragile]{Настройка OSPF на маршрутизаторе сети общежития}
+\phantomsection\label{ux43dux430ux441ux442ux440ux43eux439ux43aux430-ospf-ux43dux430-ux43cux430ux440ux448ux440ux443ux442ux438ux437ux430ux442ux43eux440ux435-ux441ux435ux442ux438-ux43eux431ux449ux435ux436ux438ux442ux438ux44f}
+\begin{itemize}
+\tightlist
+\item
+  Настроен OSPF на маршрутизаторе сети общежития
+\item
+  Назначен Router ID \texttt{10.128.254.3}
+\item
+  Выполнена публикация сетей в \texttt{area\ 0}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/4.png}
+
+}
+
+\caption{\label{fig-4}Настройка OSPF на маршрутизаторе сети общежития}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}[fragile]{Настройка OSPF на маршрутизаторе филиала в Сочи}
+\phantomsection\label{ux43dux430ux441ux442ux440ux43eux439ux43aux430-ospf-ux43dux430-ux43cux430ux440ux448ux440ux443ux442ux438ux437ux430ux442ux43eux440ux435-ux444ux438ux43bux438ux430ux43bux430-ux432-ux441ux43eux447ux438}
+\begin{itemize}
+\tightlist
+\item
+  Настроен OSPF на маршрутизаторе филиала в Сочи
+\item
+  Назначен Router ID \texttt{10.128.254.4}
+\item
+  Локальные сети добавлены в \texttt{area\ 0}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/5.png}
+
+}
+
+\caption{\label{fig-5}Настройка OSPF на маршрутизаторе филиала в Сочи}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}[fragile]{Создание VLAN 7 на коммутаторе провайдера}
+\phantomsection\label{ux441ux43eux437ux434ux430ux43dux438ux435-vlan-7-ux43dux430-ux43aux43eux43cux43cux443ux442ux430ux442ux43eux440ux435-ux43fux440ux43eux432ux430ux439ux434ux435ux440ux430}
+\begin{itemize}
+\tightlist
+\item
+  Создан VLAN 7 \texttt{q42-sochi} на коммутаторе провайдера
+\item
+  Активирован интерфейс \texttt{Vlan7}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/6.png}
+
+}
+
+\caption{\label{fig-6}Создание VLAN 7 на коммутаторе провайдера}
+
+\end{figure}%
+\end{frame}
+
+\section{Настройка подинтерфейса VLAN 7 на маршрутизаторе 42-го
+квартала}\label{ux43dux430ux441ux442ux440ux43eux439ux43aux430-ux43fux43eux434ux438ux43dux442ux435ux440ux444ux435ux439ux441ux430-vlan-7-ux43dux430-ux43cux430ux440ux448ux440ux443ux442ux438ux437ux430ux442ux43eux440ux435-42-ux433ux43e-ux43aux432ux430ux440ux442ux430ux43bux430}
+
+\begin{frame}[fragile]{Настройка подинтерфейса VLAN 7 на маршрутизаторе
+42-го квартала}
+\begin{itemize}
+\tightlist
+\item
+  Создан подинтерфейс \texttt{FastEthernet0/1.7}
+\item
+  Настроена инкапсуляция IEEE 802.1Q
+\item
+  Назначен IP-адрес \texttt{10.128.255.9/30}
+\item
+  Добавлено описание \texttt{sochi}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/7.png}
+
+}
+
+\caption{\label{fig-7}Настройка подинтерфейса VLAN 7 на маршрутизаторе
+42-го квартала}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}[fragile]{Создание VLAN 7 на коммутаторе филиала в Сочи}
+\phantomsection\label{ux441ux43eux437ux434ux430ux43dux438ux435-vlan-7-ux43dux430-ux43aux43eux43cux43cux443ux442ux430ux442ux43eux440ux435-ux444ux438ux43bux438ux430ux43bux430-ux432-ux441ux43eux447ux438}
+\begin{itemize}
+\tightlist
+\item
+  Создан VLAN 7 \texttt{q42-sochi} на коммутаторе филиала в Сочи
+\item
+  Активирован интерфейс \texttt{Vlan7}
+\item
+  Интерфейс переведён в состояние \texttt{up/up}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/8.png}
+
+}
+
+\caption{\label{fig-8}Создание VLAN 7 на коммутаторе филиала в Сочи}
+
+\end{figure}%
+\end{frame}
+
+\begin{frame}[fragile]{Настройка OSPF и подинтерфейса VLAN 7 в филиале
+Сочи}
+\phantomsection\label{ux43dux430ux441ux442ux440ux43eux439ux43aux430-ospf-ux438-ux43fux43eux434ux438ux43dux442ux435ux440ux444ux435ux439ux441ux430-vlan-7-ux432-ux444ux438ux43bux438ux430ux43bux435-ux441ux43eux447ux438}
+\begin{itemize}
+\tightlist
+\item
+  Настроен OSPF на маршрутизаторе филиала в Сочи
+\item
+  Создан подинтерфейс \texttt{FastEthernet0/0.7}
+\item
+  Настроена инкапсуляция IEEE 802.1Q
+\item
+  Назначен IP-адрес \texttt{10.128.255.10/30}
+\item
+  Добавлено описание \texttt{q42}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/9.png}
+
+}
+
+\caption{\label{fig-9}Настройка OSPF и подинтерфейса VLAN 7 на
+маршрутизаторе филиала в Сочи}
+
+\end{figure}%
+\end{frame}
+
+\section{Выводы}\label{ux432ux44bux432ux43eux434ux44b}
+
+\begin{frame}{Выводы}
+\begin{itemize}
+\tightlist
+\item
+  Выполнена настройка динамической маршрутизации OSPF
+\item
+  Настроен VLAN 7 сети провайдера
+\item
+  Созданы подинтерфейсы с IEEE 802.1Q
+\item
+  Подтверждена корректная работа маршрутизации между сегментами сети
+\end{itemize}
+\end{frame}
+
+
+
+
+\end{document}
